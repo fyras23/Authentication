@@ -1,0 +1,55 @@
+<!-- res/layout/activity_your_destination.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Commande">
+
+    <!-- RelativeLayout for the top section -->
+    <RelativeLayout
+        android:id="@+id/topSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/snk"
+        android:gravity="center"
+        android:layout_alignParentTop="true">
+
+        <!-- ImageView at the top center -->
+
+        <!-- TextView for product name below ImageView -->
+        <ImageView
+            android:id="@+id/destinationImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/destinationProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/destinationImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text=""
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- TextView for product price below product name -->
+        <TextView
+            android:id="@+id/destinationProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/destinationProductName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!-- Add more UI components as needed -->
+
+</RelativeLayout>
