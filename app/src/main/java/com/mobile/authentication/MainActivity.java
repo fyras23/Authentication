@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnLogOut=findViewById(R.id.logout);
+
         mAuth = FirebaseAuth.getInstance();
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mainAdapter);
         System.out.println("aaaa");
         System.out.println(options.getOwner());
+        ImageView allShopImageView = findViewById(R.id.allShop);
+        allShopImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle click on allShop ImageView
+                // Navigate to the Commande activity and pass the user's ID
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+                    Intent intent = new Intent(MainActivity.this, Shop.class);
+                    intent.putExtra("userId", userId);
+                    startActivity(intent);
+                } else {
+                    // User is not authenticated, handle this case accordingly
+                    Toast.makeText(MainActivity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
     }

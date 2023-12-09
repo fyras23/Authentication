@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Commande extends AppCompatActivity {
@@ -36,6 +41,28 @@ public class Commande extends AppCompatActivity {
         locaton.setOnClickListener(v -> {
             startActivityForResult(new Intent(getApplicationContext(),CurrentLocation.class),100);
         });
+        ImageView imageView = findViewById(R.id.destinationImageView);
+        TextView productNameTextView = findViewById(R.id.destinationProductName);
+        TextView productPriceTextView = findViewById(R.id.destinationProductPrice);
+
+
+        // Retrieve data from the intent
+        Intent intent = getIntent();
+        String productName = intent.getStringExtra("productName");
+        int productPrice = intent.getIntExtra("productPrice", 0);
+        String productImage = intent.getStringExtra("productImage");
+
+        // Update UI with the retrieved data
+        productNameTextView.setText(productName);
+        productPriceTextView.setText(String.valueOf(productPrice));
+
+        // Load image using Glide or another image loading library
+        Glide.with(this)
+                .load(productImage)
+                .placeholder(R.drawable.common_google_signin_btn_icon_dark) // Placeholder image resource
+                .error(R.drawable.common_google_signin_btn_icon_dark_normal) // Error image resource
+                .into(imageView);
+
     }
 
     @Override
@@ -64,10 +91,16 @@ public class Commande extends AppCompatActivity {
             progressDialog.dismiss();
             return;
         }
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String userId = currentUser.getUid();
+            commandeclass.setUserId(userId);
         commandeclass.setNom(nom.getText().toString());
         commandeclass.setPrenom(prenom.getText().toString());
         commandeclass.setTelephone(telephone.getText().toString());
         commandeclass.setCity(city.getText().toString());
+        commandeclass.setNameSK(getIntent().getStringExtra("productName"));
+        commandeclass.setPrice(getIntent().getIntExtra("productPrice",0));
 
 
             firebaseDatabase.getReference().child("commandes").push().setValue(commandeclass).addOnSuccessListener(aVoid -> {
