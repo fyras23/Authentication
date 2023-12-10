@@ -5,8 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +15,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     Button btnLogOut;
@@ -58,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
                 // Handle click on allShop ImageView
                 // Navigate to the Commande activity and pass the user's ID
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null) {
-                    String userId = currentUser.getUid();
-                    Intent intent = new Intent(MainActivity.this, Shop.class);
-                    intent.putExtra("userId", userId);
+                Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+//                    intent.putExtra("userId", userId);
                     startActivity(intent);
-                } else {
-                    // User is not authenticated, handle this case accordingly
-                    Toast.makeText(MainActivity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
-                }
+
+//                if (currentUser != null) {
+//                    String userId = currentUser.getUid();
+//                    Intent intent = new Intent(MainActivity.this, ShopModel.class);
+//                    intent.putExtra("userId", userId);
+//                    startActivity(intent);
+//                } else {
+//                    // User is not authenticated, handle this case accordingly
+//                    Toast.makeText(MainActivity.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

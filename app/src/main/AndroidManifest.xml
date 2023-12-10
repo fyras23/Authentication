@@ -47,8 +47,10 @@
             android:exported="false" />
 
         <activity
-            android:name=".Shop"
+            android:name=".ShopActivity"
             android:exported="false" />
+
+
 
         <activity
             android:name=".MainActivity"
